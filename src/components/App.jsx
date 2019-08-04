@@ -4,6 +4,7 @@ import {
   TextField,
   Button
 } from 'pipestyle';
+import Table from './Table';
 
 class App extends React.Component {
   state = {
@@ -83,19 +84,13 @@ class App extends React.Component {
     });
   }
 
-  renderDatabaseRows = () => {
+  nodesToRows = () => {
     return this.state.nodes.map(node => {
-      return (
-        <tr key={node.id}>
-          <td>{node.title}</td>
-          <td>{node.status.name}</td>
-          <td>{node.created_at}</td>
-          <td>{node.updated_at}</td>
-          <td>{node.finished_at || 'UNDEFINED'}</td>
-        </tr>
-      );
+      return [
+        node.title, node.status.name, node.created_at, node.updated_at, node.finished_at
+      ];
     });
-  };
+  }
 
   render() {
     return (
@@ -128,22 +123,12 @@ class App extends React.Component {
           <Button type="submit">
             Submit
           </Button>
-
-          <table className="pp-table pp-table-content">
-            <thead>
-              <tr>
-                <th>TITLE</th>
-                <th>STATUS</th>
-                <th>CREATED AT</th>
-                <th>UPDATED AT</th>
-                <th>FINISHED AT</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.renderDatabaseRows()}
-            </tbody>
-          </table>
         </form>
+
+        <Table
+          headerCells={['TITLE', 'STATUS', 'CREATED AT', 'UPDATED AT', 'FINISHED AT']}
+          bodyRows={this.nodesToRows()}
+        />
       </div>
     );
   }
