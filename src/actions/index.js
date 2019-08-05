@@ -10,7 +10,7 @@ export const fetchDatabaseRecords = (databaseID, cursor, apiKey) => {
         query: `
           {
             table(id: "${databaseID}") {
-              table_records(first: 1, after: "${cursor}") {
+              table_records(first: 50, after: "${cursor}") {
                 edges {
                   cursor
                   node {
