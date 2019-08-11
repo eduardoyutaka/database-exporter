@@ -36,6 +36,7 @@ class Form extends React.Component {
   onFormSubmit = event => {
     event.preventDefault();
 
+    this.props.fetchDatabaseFields(this.state.databaseID, this.state.apiKey);
     this.props.fetchDatabaseRecords(this.state.databaseID, this.state.cursor, this.state.apiKey);
   }
 

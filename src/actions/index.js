@@ -1,3 +1,34 @@
+export const fetchDatabaseFields = (databaseID, apiKey) => {
+  return dispatch => {
+    return fetch('https://api.pipefy.com/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        query: `
+          {
+            table(id: "${databaseID}") {
+              table_fields {
+                label
+                type
+              }
+            }
+          }
+        `
+      })
+    }).then(res => {
+      return res.json();
+    }).then(json => {
+      dispatch({
+        type: 'FETCH_DATABASE_FIELDS',
+        databaseFields: json.data.table.table_fields,
+      });
+    });
+  };
+};
+
 export const fetchDatabaseRecords = (databaseID, cursor, apiKey) => {
   return dispatch => {
     return fetch('https://api.pipefy.com/graphql', {

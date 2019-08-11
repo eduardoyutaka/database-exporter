@@ -1,16 +1,14 @@
 import { connect } from 'react-redux';
+import { getTableHeader, getTableBody } from '../helpers/AppHelpers';
 import App from '../components/App';
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ databaseFields, databaseRecords }) => {
   return {
-    database: [['TITLE', 'STATUS', 'CREATED AT', 'UPDATED AT', 'FINISHED AT']].concat(state.databaseRecords.map(databaseRecord => {
-      return [
-        databaseRecord.title, databaseRecord.status.name, databaseRecord.created_at, databaseRecord.updated_at, databaseRecord.finished_at
-      ];
-    })),
+    tableHeader: getTableHeader(databaseFields),
+    tableBody: getTableBody(databaseRecords),
   };
 };
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
 )(App);

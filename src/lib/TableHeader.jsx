@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-const TableHeader = ({ cells }) => {
+const TableHeader = ({ labels }) => {
   return (
     <thead>
       <tr>
-        {cells.map((cell, index) =>
-          <th key={index}>{cell}</th>
+        {labels.map((label, index) =>
+          <th key={index}>{label}</th>
         )}
       </tr>
     </thead>
